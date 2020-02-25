@@ -7,8 +7,8 @@ pipeline {
             
            
             // Run Maven on a Unix agent.
-            sh " cd /var/lib/jenkins/workspace/java-k8s/complete/" &&
-            sh "mvn clean install"
+            
+            sh "mvn clean install -f /var/lib/jenkins/workspace/java-k8s/complete/pom.xml"
 
             // To run Maven on a Windows agent, use
             // bat "mvn -Dmaven.test.failure.ignore=true clean package"
