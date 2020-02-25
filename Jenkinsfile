@@ -7,18 +7,11 @@ pipeline {
       stage('Build') {
          steps {
             
-           
-            // Run Maven on a Unix agent.
-            
             sh "mvn clean install -f /var/lib/jenkins/workspace/java-k8s/complete/pom.xml"
-
-            // To run Maven on a Windows agent, use
-            // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+ 
          }
-
          
          }
-       
        
         stage('Build Docker Image'){
             steps{
@@ -30,9 +23,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker_login', passwordVariable: 'passwd', usernameVariable: 'username')]) {
                      sh "docker push sbabburu/springjava-app:${DOCKER_TAG}"
                 }
-            }
-        
-      
+            }   }
    }
 }
 def getDockerTag(){
