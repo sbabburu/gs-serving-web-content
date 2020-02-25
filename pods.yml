@@ -7,8 +7,8 @@ spec:
   selector:
     app: spring-app
   ports:
-  - targetPort: 8080
-    port: 8080
+  - protocol: TCP
+    port: 80
     nodePort: 30002
 
 ---
