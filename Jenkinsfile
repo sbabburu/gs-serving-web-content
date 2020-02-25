@@ -1,6 +1,8 @@
 pipeline {
    agent any
-
+        environment{
+        DOCKER_TAG = getDockerTag()
+    }
     stages {
       stage('Build') {
          steps {
@@ -16,6 +18,21 @@ pipeline {
 
          
          }
+       
+       
+        stage('Build Docker Image'){
+            steps{
+                sh "docker build -f/var/lib/jenkins/workspace/java-k8s/complete/Dockerfile -t sbabburu/springjava-app:${DOCKER_TAG} "
+            }
+        }
+        stage('DockerHub Push'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'docker_login', passwordVariable: 'passwd', usernameVariable: 'username')]) {
+                     sh "docker push sbabburu/springjava-app:${DOCKER_TAG}"
+                }
+            }
+        
+       
       }
    }
 
