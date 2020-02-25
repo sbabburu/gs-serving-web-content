@@ -7,7 +7,7 @@ apt-get update -y && \
 # Install Java
 apt-get install default-jre -y
 
-ADD /var/lib/jenkins/workspace/java-k8s/complete/target/serving-web-content-0.0.1.snapshot.jar spring-mvc-example.jar
+ADD ./target/gs-serving-web-content-0.1.0.jar spring-mvc-example.jar
 
 EXPOSE 8080
 
