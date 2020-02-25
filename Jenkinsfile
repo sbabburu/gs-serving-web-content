@@ -15,7 +15,7 @@ pipeline {
        
         stage('Build Docker Image'){
             steps{
-               sh "cd ./complete && docker build -t sbabburu/springjava-app:${DOCKER_TAG} ."
+               sh "docker build -f /var/lib/jenkins/workspace/java-k8s/complete -t sbabburu/springjava-app:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
