@@ -13,19 +13,19 @@ pipeline {
          
          }
        
-        stage('Build Docker Image'){
-            steps{
-               
-               sh "docker build -f /var/lib/jenkins/workspace/java-k8s/complete/DockerfileDev -t sbabburu/springjava-app:${DOCKER_TAG}"
-               
+        stage('DeployToProduction') {
+            
+            steps {
+                input 'Deploy to Production?'
+                milestone(1)
+                kubernetesDeploy(
+                    kubeconfigId: 'kube-config',
+                    configs: 'pods.yml',
+                    enableConfigSubstitution: true
+                )
             }
         }
-        stage('DockerHub Push'){
-            steps{
-                withCredentials([usernamePassword(credentialsId: 'docker_login', passwordVariable: 'passwd', usernameVariable: 'username')]) {
-                     sh "docker push sbabburu/springjava-app:${DOCKER_TAG}"
-                }
-            }   }
+        
    }
 }
 def getDockerTag(){
