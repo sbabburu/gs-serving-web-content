@@ -33,4 +33,4 @@ spec:
       - name: train-schedule
         image: sbabburu/spring-mvc-sample-image:0.1
         ports:
-        - containerPort: 8080
+        - containerPort: 8087
